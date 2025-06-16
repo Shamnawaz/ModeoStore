@@ -1,4 +1,7 @@
+// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
+
 const HomePage = () => {
+  // await delay(2000);
   return ( 
     <>
       <h1 className="">ModeoStore</h1>
