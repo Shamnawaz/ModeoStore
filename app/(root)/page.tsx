@@ -1,10 +1,13 @@
+import sampleData from "@/db/sample-data";
+import ProductList from "@/components/shared/product/product-list";
 // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
 
 const HomePage = () => {
-  // await delay(2000);
-  return ( 
+  // await delay(2000););
+  
+  return (
     <>
-      <h1 className="">ModeoStore</h1>
+      <ProductList data={sampleData.products} title="Nouveautés Récentes" limit={4} />
     </> 
   );
 }
