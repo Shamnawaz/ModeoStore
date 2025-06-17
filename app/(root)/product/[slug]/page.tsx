@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ProductPrice from "@/components/shared/product/product-price";
+import ProductImages from "@/components/shared/product/product-images";
 
 const ProductDetailsPage = async (props: { params: Promise<{ slug: string }> }) => {
 
@@ -11,6 +12,7 @@ const ProductDetailsPage = async (props: { params: Promise<{ slug: string }> }) 
     const product = await getProductBySlug(slug);
 
     if(!product) notFound();
+    
     return ( 
         <>
             <section>
@@ -18,6 +20,7 @@ const ProductDetailsPage = async (props: { params: Promise<{ slug: string }> }) 
                     {/* Bloc Image */}
                     <div className="col-span-2">
                         {/* Image Component */}
+                        <ProductImages images={product.images} />
                     </div>
                     {/* Bloc Détails */}
                     <div className="col-span-2 p-5">
