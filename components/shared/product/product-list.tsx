@@ -16,7 +16,7 @@ const ProductList = ({ data, title, limit }: { data: Product[]; title?: string; 
                 </div>
             ): (
                 <div>
-                    <p>Aucun Produit n'a été trouvé</p>
+                    <p>Aucun Produit n&aposa été trouvé</p>
                 </div>
             ) }
         </div>
