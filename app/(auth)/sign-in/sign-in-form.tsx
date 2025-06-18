@@ -8,10 +8,15 @@ import { signInDefaultValues } from "@/lib/constants";
 import Link from "next/link";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
+import { useSearchParams } from "next/navigation";
 
 const SignInForm = () => {
 
     const [state, action] = useActionState(signInCredentials, { success: false, message: '' });
+
+    const searchParam = useSearchParams()
+    const callbackUrl = searchParam.get('callbackUrl') || '/';
+
     const SignInButton = () => {
         const { pending } = useFormStatus();
 
@@ -24,6 +29,7 @@ const SignInForm = () => {
 
     return ( 
         <form action={action}>
+            <input type="hidden" name="callbackUrl" value={callbackUrl} />
             <div className="spave-y-6 flex flex-col gap-5">
                 <div>
                     <Label className="pb-2" htmlFor="email">Email</Label>
