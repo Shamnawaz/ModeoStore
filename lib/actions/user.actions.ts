@@ -23,7 +23,7 @@ export async function signInCredentials(prevState: unknown, formData: FormData) 
         }
     }
 
-    return { success: 'false', message: 'Email ou mot de passe incorrecte' }
+    return { success: false, message: 'Email ou mot de passe incorrecte' }
 }
 
 // Déconnecter l'user
