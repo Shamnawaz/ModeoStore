@@ -18,3 +18,9 @@ export const insertProductSchema = z.object({
     banner: z.string().nullable(),
     price: currency,
 });
+
+// Schéma pour connecter un user
+export const signInFormSchema = z.object({
+    email: z.string().email('Adresse email invalide'),
+    password: z.string().min(8, 'Le mot de passe doit comporter au moins 8 caractères')
+});
