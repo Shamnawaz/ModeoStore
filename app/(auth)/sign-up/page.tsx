@@ -27,7 +27,7 @@ const SignUpPage = async (props: { searchParams: Promise<{ callbackUrl: string }
                         <Image src={'/images/logo.svg'} width={100} height={100} alt={`${APP_NAME} logo`} priority={true}/>
                     </Link>
                     <CardTitle className="text-center">Inscription</CardTitle>
-                    <CardDescription className="text-center mb-2">Remplissez le formulaire ci-dessous pour vous inscire </CardDescription>
+                    <CardDescription className="text-center mb-2">Remplissez le formulaire ci-dessous pour vous inscrire </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {/* Form */}

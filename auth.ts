@@ -59,7 +59,7 @@ export const config = {
                 session.user.name = user.name;
             }
 
-            return session
+            return session;
         },
 
         async jwt({ token, user, trigger, session }: any) {
