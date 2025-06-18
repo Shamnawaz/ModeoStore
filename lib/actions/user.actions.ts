@@ -5,6 +5,7 @@ import { signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
+import { formatError } from "../utils";
 
 // Connecte l'user avec email et mdp
 export async function signInCredentials(prevState: unknown, formData: FormData) {
@@ -23,9 +24,8 @@ export async function signInCredentials(prevState: unknown, formData: FormData) 
         if(isRedirectError(error)) {
             throw error;
         }
-    }
-
-    return { success: false, message: 'Email ou mot de passe incorrecte' }
+        return { success: false, message: 'Email ou mot de passe incorrecte' }
+    }    
 }
 
 // Déconnecter l'user
@@ -65,6 +65,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
         if(isRedirectError(error)) {
             throw error;
         }
+
+        return { success: false, message: formatError(error) };
     }
-    return { success: false, message: 'Utilisateur non enregistré' };
 }
