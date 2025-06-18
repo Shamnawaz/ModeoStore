@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { MenuIcon, ShoppingCart, UserIcon } from "lucide-react";
+import { MenuIcon, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import ModeToggle from "./mode-toggle";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
