@@ -3,7 +3,28 @@ import { formatNumberWithDecimal } from "./utils";
 
 const currency = z
         .string()
-        .refine((value) => /^\d+(\.\d{2})?€/.test(formatNumberWithDecimal(Number(value))), 'Le prix doit obligatoirement avoir deux décimales après la virgule' )
+        .refine((value) => /^\d+(\.\d{2})?€/.test(formatNumberWithDecimal(Number(value))), 'Le prix doit obligatoirement avoir deux décimales après la virgule' );
+
+
+// Schéma du cart
+export const cartItemSchema = z.object({
+    productId: z.string().min(1, 'Le produit est requis'),
+    name: z.string().min(1, 'Le nom du produit est requis'),
+    slug: z.string().min(1, 'Le slug du produit est requis'),
+    quantity: z.number().int().nonnegative('La quantité du produit doit être obligatoirement un nombre positif'),
+    image: z.string().min(1, 'Image du produit est requis'),
+    price: currency
+});
+
+export const insertCartSchema = z.object({
+    items: z.array(cartItemSchema),
+    itemsPrice: currency,
+    totalPrice: currency,
+    shippingPrice: currency,
+    taxPrice: currency,
+    sessionCartId: z.string().min(1, 'La session du panier est requis'),
+    userId: z.string().optional().nullable()
+});
 
 // Schéma d'insertions des produits
 export const insertProductSchema = z.object({
