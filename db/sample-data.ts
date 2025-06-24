@@ -1,18 +1,17 @@
 import { ADMIN_EMAIL } from "@/lib/constants";
-import { hashSync } from "bcrypt-ts-edge";
 
 const sampleData = {
   users: [
     {
       name: "Sham",
       email: ADMIN_EMAIL,
-      password: hashSync('12345678', 10),
+      password: '12345678',
       role: 'ADMIN',
     },
     {
       name: "John",
       email: "user@example.com",
-      password: hashSync('12345678', 10),
+      password: '12345678',
       role: 'USER',
     }
   ],

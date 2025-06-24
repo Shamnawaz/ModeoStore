@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import sampleData from "./sample-data";
+import { hash } from 'argon2';
 
 async function main() {
     const prisma = new PrismaClient();
@@ -13,8 +14,15 @@ async function main() {
         data: sampleData.products
     });
 
+    const userWithHashedPasswords = await Promise.all(
+        sampleData.users.map(async (user) => ({
+            ...user,
+            password: await hash(user.password)
+        }))
+    );
+
     await prisma.user.createMany({
-        data: sampleData.users
+        data: userWithHashedPasswords
     });
 
     console.log('Database filled successfully');

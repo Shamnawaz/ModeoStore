@@ -3,7 +3,10 @@ import { formatNumberWithDecimal } from "./utils";
 
 const currency = z
         .string()
-        .refine((value) => /^\d+(\.\d{2})?€/.test(formatNumberWithDecimal(Number(value))), 'Le prix doit obligatoirement avoir deux décimales après la virgule' );
+        .refine((value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))), 'Le prix doit obligatoirement avoir deux décimales après la virgule' );
+// const currency = z
+//   .number()
+//   .refine((val) => Number.isFinite(val) && /^\d+\.\d{2}$/.test(val.toFixed(2)), 'Le prix doit obligatoirement avoir deux décimales après la virgule');
 
 
 // Schéma du cart
