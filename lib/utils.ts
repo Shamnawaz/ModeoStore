@@ -20,15 +20,15 @@ export function formatNumberWithDecimal(num: number): string {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function formatError(error: any) {
   if (error.name === 'ZodError') {
-    // Gestion des erreur Zod
+    // Handle Zod errors
     const fieldErrors = Object.keys(error.errors).map((field) => error.errors[field].message);
     return fieldErrors.join('. ');
   } else if (error.name === 'PrismaClientKnownRequestError' && error.code === 'P2002') {
-    // Gestion des erreurs prisma
+    // Handle Prisma errors
     const field = error.meta?.target ? error.meta.target[0] : 'Field';
     return `${field.charAt(0).toUpperCase() + field.slice(1)} existe déjà`; 
   } else {
-    // Autres...
+    // Others errors...
     return typeof error.message === 'string' ? error.message : JSON.stringify(error.message);
   }
 }
