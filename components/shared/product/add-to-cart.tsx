@@ -30,7 +30,6 @@ const AddToCart = ({ cart, item }: { cart?: Cart, item: CartItem }) => {
                 }
             });
         })
-
     };
 
     const handleRemoveFromCart = async () => {
@@ -49,7 +48,6 @@ const AddToCart = ({ cart, item }: { cart?: Cart, item: CartItem }) => {
                 }
             });
         })
-
     };
 
     // Check if item is in cart
