@@ -18,8 +18,8 @@ export const signUpDefaultValues = {
 
 export const shippingAddressDefaultValues = {
     fullName: 'John Doe',
-    streetAdress: '123 Main st',
+    streetAddress: '123 Main st',
     city: 'Paris',
     postalCode: '75000',
-    country: 'France'
+    country: 'France',
 }
