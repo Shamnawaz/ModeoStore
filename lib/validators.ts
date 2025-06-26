@@ -55,3 +55,14 @@ export const signUpFormSchema = z.object({
     message: "Les mots de passes ne sont pas identiques",
     path: ['confirmPassword'],
 } );
+
+// Schema for shipping address
+export const shippingAddressSchema = z.object({
+    fullName: z.string().min(3, 'Le nom doit obligatoirement contenir au moins 3 caractères'),
+    streetAddress: z.string().min(8, 'Addresse doit obligatoirement contenir au moins 3 caractères'),
+    city: z.string().min(3, 'La ville doit obligatoirement contenir au moins 3 caractères'),
+    postalCode: z.string().min(3, 'Le code postal doit obligatoirement contenir au moins 3 caractères'),
+    country: z.string().min(3, 'Le pays doit obligatoirement contenir au moins 3 caractères'),
+    lat: z.number().optional(),
+    lng: z.number().optional(),
+})

@@ -7,11 +7,19 @@ export const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "admin@example
 export const signInDefaultValues = {
     email: '',
     password: ''
-}
+};
 
 export const signUpDefaultValues = {
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
+};
+
+export const shippingAddressDefaultValues = {
+    fullName: 'John Doe',
+    streetAdress: '123 Main st',
+    city: 'Paris',
+    postalCode: '75000',
+    country: 'France'
 }
