@@ -7,6 +7,8 @@ import { prisma } from "@/db/prisma";
 import { formatError } from "../utils";
 import { hash } from 'argon2'
 import { ShippingAddress } from "@/types";
+import { paymentMethodSchema } from "../validators";
+import { z } from "zod";
 
 // Connecte l'user avec email et mdp
 export async function signInCredentials(prevState: unknown, formData: FormData) {
@@ -109,6 +111,42 @@ export async function updateUserAddress(data: ShippingAddress) {
             success: true,
             message: 'Utilisateur mis à jour avec succès'
         }
+    } catch (error) {
+        return {
+            success: false,
+            message: formatError(error)
+        };
+    }
+}
+
+// Update user's payment method
+export async function updateUserPaymentMethod(data: z.infer<typeof paymentMethodSchema>) {
+    try {
+        const session = await auth();
+        const currentUser = await prisma.user.findFirst({
+            where: {
+                id: session?.user?.id
+            }
+        });
+
+        if(!currentUser) throw new Error('User not found')
+
+        const paymentMethod = paymentMethodSchema.parse(data);
+
+        await prisma.user.update({
+            where: {
+                id: currentUser.id
+            },
+            data: {
+                paymentMethod: paymentMethod.type
+            }
+        });
+
+        return {
+            success: true,
+            message: 'Utilisateur mis à jour avec succès'
+        };
+
     } catch (error) {
         return {
             success: false,
