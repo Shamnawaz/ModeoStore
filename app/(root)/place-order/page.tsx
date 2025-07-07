@@ -78,7 +78,7 @@ const PlaceOrderPage = async () => {
                     <Card>
                         <CardContent className="p-4 gap-4">
                             <h2 className="text-xl pb-4">
-                                Articles
+                                Commande
                             </h2>
                             <Table>
                                 <TableHeader>
