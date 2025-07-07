@@ -6,7 +6,6 @@ const currency = z
         .string()
         .refine((value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))), 'Le prix doit obligatoirement avoir deux décimales après la virgule' );
 
-// Schéma du cart
 export const cartItemSchema = z.object({
     productId: z.string().min(1, 'Le produit est requis'),
     name: z.string().min(1, 'Le nom du produit est requis'),
@@ -26,7 +25,6 @@ export const insertCartSchema = z.object({
     userId: z.string().optional().nullable()
 });
 
-// Schéma d'insertions des produits
 export const insertProductSchema = z.object({
     name: z.string().min(3, 'Le nom du produit doit contenir au moins 3 caractères.'),
     slug: z.string().min(3, 'Le slug du produit doit contenir au moins 3 caractères.'),
@@ -40,13 +38,11 @@ export const insertProductSchema = z.object({
     price: currency,
 });
 
-// Schéma pour connecter un user
 export const signInFormSchema = z.object({
     email: z.string().email('Adresse email invalide'),
     password: z.string().min(8, 'Le mot de passe doit comporter au moins 8 caractères')
 });
 
-// Schéma pour inscrire un user
 export const signUpFormSchema = z.object({
     name: z.string().min(3, 'Le nom doit contenir au moins 3 caractères'),
     email: z.string().email('Adresse email invalide'),
@@ -57,7 +53,6 @@ export const signUpFormSchema = z.object({
     path: ['confirmPassword'],
 } );
 
-// Schema for shipping address
 export const shippingAddressSchema = z.object({
     fullName: z.string().min(3, 'Le nom doit obligatoirement contenir au moins 3 caractères'),
     streetAddress: z.string().min(8, 'Addresse doit obligatoirement contenir au moins 3 caractères'),
@@ -68,10 +63,30 @@ export const shippingAddressSchema = z.object({
     lng: z.number().optional(),
 });
 
-// Schema for payment method
 export const paymentMethodSchema = z.object({
     type: z.string().min(1, 'La méthode de paiment est requis'),
 }).refine((data) => PAYMENT_METHODS.includes(data.type), {
     path: ['type'],
     message: 'Méthode de paiement inexistante'
+});
+
+export const insertOrderSchema = z.object({
+    userId: z.string().min(1, 'Utilisateur requis'),
+    itemsPrice: currency,
+    shippingPrice: currency,
+    taxPrice: currency,
+    totalPrice: currency,
+    paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
+        message: 'Méthode de paiement invalide'
+    }),
+    shippingAddress: shippingAddressSchema
+});
+
+export const insertOrderItemSchema = z.object({
+    productId: z.string(),
+    slug: z.string(),
+    image: z.string(),
+    name: z.string(),
+    price: currency,
+    quantity: z.number()
 });
