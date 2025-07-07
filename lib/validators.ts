@@ -70,7 +70,7 @@ export const shippingAddressSchema = z.object({
 
 // Schema for payment method
 export const paymentMethodSchema = z.object({
-    type: z.string().min(1, 'La méthode de paiment est requiss'),
+    type: z.string().min(1, 'La méthode de paiment est requis'),
 }).refine((data) => PAYMENT_METHODS.includes(data.type), {
     path: ['type'],
     message: 'Méthode de paiement inexistante'
