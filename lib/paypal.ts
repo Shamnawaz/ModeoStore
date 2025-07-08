@@ -1,6 +1,44 @@
 import { PAYPAL_API_URL } from "./constants";
 
-export const paypal = {};
+export const paypal = {
+     createOrder: async function createOrder(price: number) {
+          const accessToken = await generateAccessToken();
+          const url = `${PAYPAL_API_URL}/v2/checkout/orders`;
+
+          const res = await fetch(url, {
+               method: 'POST',
+               headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`
+               },
+               body: JSON.stringify({
+                    intent: 'CAPTURE',
+                    purchase_units: [{
+                         amount: {
+                              currency_code: 'EUR',
+                              value: price,
+                         }
+                    }]
+               })
+          });
+
+          return handleResponse(res);
+     },
+     capturePayment: async function capturePayment(orderId: string) {
+          const accessToken = await generateAccessToken();
+          const url = `${PAYPAL_API_URL}/v2/checkout/orders/${orderId}/capture`;
+
+          const res = await fetch(url, {
+               method: 'POST',
+               headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`
+               }
+          });
+
+          return handleResponse(res);
+     }
+};
 
 // Paypal access token
 export async function generateAccessToken() {
