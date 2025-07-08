@@ -3,7 +3,7 @@ import { PAYPAL_API_URL } from "./constants";
 export const paypal = {};
 
 // Paypal access token
-async function generateAccessToken() {
+export async function generateAccessToken() {
    const { PAYPAL_CLIENT_ID, PAYPAL_APP_SECRET } = process.env;
    const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_APP_SECRET}`).toString('base64');
 
@@ -12,15 +12,18 @@ async function generateAccessToken() {
     body: 'grant_type=client_credentials',
     headers: {
         Authorization: `Basic ${auth}`,
-        'Content-Type':'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded',
     }
    });
 
-   if(res.ok) {
-    const data = await res.json();
-    return data.access_token;
-   } else {
-        const errMessage = await res.text();
-        throw new Error(errMessage);
-   }
+     const jsonData = await handleResponse(res);
+     return jsonData.access_token;
+}
+
+async function handleResponse(response: any) {
+     if (response.status === 200 || response.status === 201) {
+          return response.json();
+     }
+     const errorMessage = await response.text();
+     throw new Error(errorMessage);
 }
