@@ -6,6 +6,13 @@ const currency = z
         .string()
         .refine((value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))), 'Le prix doit obligatoirement avoir deux décimales après la virgule' );
 
+export const paymentResultSchema = z.object({
+    id: z.string(),
+    status: z.string(),
+    email_address: z.string(),
+    pricePaid: z.string(),
+})
+
 export const cartItemSchema = z.object({
     productId: z.string().min(1, 'Le produit est requis'),
     name: z.string().min(1, 'Le nom du produit est requis'),
