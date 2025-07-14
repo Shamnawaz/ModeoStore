@@ -22,7 +22,7 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
     }
 
     return ( 
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-center pt-5">
             <Button size='lg' variant={'outline'} className="w-28" disabled={Number(page) <= 1} onClick={ () => handleClick('prev') }>
                 Précédent
             </Button>
