@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { updateProfile } from "@/lib/actions/user.actions";
 
 const ProfileForm = () => {
 
@@ -28,8 +29,24 @@ const ProfileForm = () => {
         }
     });
 
-    const onSubmit = () => {
-        return;
+    const onSubmit = async (values: z.infer<typeof userProfileSchema>) => {
+        const res = await updateProfile(values);
+
+        if(!res.success) {
+            return toast.error(res.message);
+        }
+
+        const newSession = {
+            ...session,
+            user: {
+                ...session?.user,
+                name: values.name
+            }
+        };
+
+        await update(session);
+
+        return toast.success(res.message);
     }
 
 
@@ -48,7 +65,7 @@ const ProfileForm = () => {
                     <FormField control={form.control} name="name" render={ ({ field }) => 
                         <FormItem className="w-full">
                             <FormControl>
-                                <Input disabled placeholder="Name" className="input-field" {...field} />
+                                <Input placeholder="Name" className="input-field" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem> } 
