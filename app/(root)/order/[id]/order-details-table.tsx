@@ -40,7 +40,7 @@ const OrderDetailsTable = ({ order, paypalClientId }: { order: Order, paypalClie
     } = order;
 
     const PrintLoadingState = () => {
-        const [{ isPending, isRejected }] = usePayPalScriptReducer()
+        const [{ isPending, isRejected }] = usePayPalScriptReducer();
         let status = '';
 
         if(isPending) {
@@ -158,6 +158,14 @@ const OrderDetailsTable = ({ order, paypalClientId }: { order: Order, paypalClie
                                 <div>Total</div>
                                 <div>{ formatCurrency(totalPrice) }</div>
                             </div>
+                            { !isPaid && paymentMethod === 'PayPal' && (
+                                <div>
+                                    <PayPalScriptProvider options={{clientId: paypalClientId, currency: 'EUR'}}>
+                                        <PrintLoadingState />
+                                        <PayPalButtons createOrder={handleCreatePayPalOrder} onApprove={handleApprovePayPalOrder} />
+                                    </PayPalScriptProvider>
+                                </div>
+                            ) }
                         </CardContent>
                     </Card>
                 </div>
