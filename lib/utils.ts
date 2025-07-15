@@ -58,6 +58,13 @@ export function formatCurrency(amount: number | string | null) {
   return 'NaN';
 }
 
+// Format Number
+const NUMBER_FORMATTER = new Intl.NumberFormat('fr-FR');
+
+export function formatNumber(number: number) {
+  return NUMBER_FORMATTER.format(number);
+}
+
 export function formatId(id: string) {
   return `..${id.substring(id.length - 6)}`;
 }
@@ -108,7 +115,6 @@ export function buildUrlQuery({ params, key, value }: { params: string; key: str
   query[key] = value;
 
   return qs.stringifyUrl({ url: window.location.pathname, query }, { skipNull: true });
-  
 }
 
 
