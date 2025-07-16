@@ -50,6 +50,10 @@ export const insertProductSchema = z.object({
     price: currency,
 });
 
+export const updateProductSchema = insertProductSchema.extend({
+    id: z.string().min(1, 'Id obligatoire'),
+})
+
 export const signInFormSchema = z.object({
     email: z.string().email('Adresse email invalide'),
     password: z.string().min(8, 'Le mot de passe doit comporter au moins 8 caractères')
