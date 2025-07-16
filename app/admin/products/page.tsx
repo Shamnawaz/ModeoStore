@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllProducts } from "@/lib/actions/product.actions";
+import { getAllProducts, deleteProduct } from "@/lib/actions/product.actions";
 import { formatCurrency, formatId } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { 
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { requireAdmin } from "@/lib/auth-guard";
 import Pagination from "@/components/shared/pagination";
+import DeleteDialog from "@/components/shared/delete-dialog";
 
 const AdminProductsPage = async (props: { searchParams: Promise<{ page: string; query: string; category: string; }> }) => {
     
@@ -61,7 +62,7 @@ const AdminProductsPage = async (props: { searchParams: Promise<{ page: string; 
                                 <Button asChild variant={'outline'} size={'sm'}>
                                     <Link href={`/admin/products/${product.id}`}>Modifier</Link>
                                 </Button>
-                                {/* DELETE */}
+                                <DeleteDialog id={product.id} action={deleteProduct} />
                             </TableCell>
                         </TableRow>
                     )) }
