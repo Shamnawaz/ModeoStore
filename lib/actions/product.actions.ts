@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from "@/db/prisma";
-import { LATEST_PRODUCT_LIMIT } from "../constants";
+import { LATEST_PRODUCT_LIMIT, PAGE_SIZE } from "../constants";
 import { convertToPlainObj } from "../utils";
 
 // On récupère les produits récents
@@ -21,4 +21,18 @@ export async function getProductBySlug(slug: string) {
             slug
         },
     });
+}
+
+export async function getAllProducts({ query, limit = PAGE_SIZE, page, category} : { query: string; limit?: number; page: number; category?: string; }) {
+    const data = await prisma.product.findMany({
+        skip: (page - 1) * limit,
+        take: limit
+    });
+
+    const dataCount = await prisma.product.count();
+
+    return {
+        data,
+        totalPages: Math.ceil(dataCount) / limit
+    };
 }
