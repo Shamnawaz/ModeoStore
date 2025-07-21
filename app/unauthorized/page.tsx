@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
     title: 'Unauthorized Access'
 }
 

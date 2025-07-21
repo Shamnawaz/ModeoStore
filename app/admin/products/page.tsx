@@ -31,7 +31,7 @@ const AdminProductsPage = async (props: { searchParams: Promise<{ page: string; 
             <div className="flex-between">
                 <h1 className="h2-bold">Produits</h1>
                 <Button asChild variant={'default'}>
-                    <Link href={'/admin/product/create'}>
+                    <Link href={'/admin/products/create'}>
                         Ajouter un produit
                     </Link>
                 </Button>
